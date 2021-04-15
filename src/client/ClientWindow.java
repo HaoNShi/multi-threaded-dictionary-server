@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
@@ -21,7 +22,7 @@ public class ClientWindow extends JFrame {
 
 	private JFrame clientFrame;
 	private JTextField wordField;
-	private JTextField defField;
+	private JTextArea defField;
 	private Client client;
 	private JButton btnQuery;
 	private JButton btnAdd;
@@ -55,7 +56,7 @@ public class ClientWindow extends JFrame {
 		wordField.setColumns(10);
 
 		// input definition
-		defField = new JTextField();
+		defField = new JTextArea();
 		defField.setBounds(81, 68, 435, 178);
 		clientFrame.getContentPane().add(defField);
 		defField.setColumns(10);
@@ -102,11 +103,18 @@ public class ClientWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnQuery) {
 				JSONObject request = new JSONObject();
+				String keyword = wordField.getText();
 				request.put("Task", "Query");
-				request.put("Key", wordField.getText());
+				request.put("Key", keyword);
 				try {
 					JSONObject reply = client.request(request);
-					defField.setText(reply.toString());
+					String state = reply.get("Query").toString();
+					String msg = reply.get(keyword).toString();
+					if (state.equals("Success")) {
+						defField.setText(msg);
+					} else {
+						JOptionPane.showMessageDialog(clientFrame, msg);
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
