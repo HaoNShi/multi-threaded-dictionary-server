@@ -10,12 +10,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * Dictionary: read a json dictionary that supports query/add/remove functions.
+ * Dictionary: read a JSON dictionary that supports query/add/remove functions.
  */
 
 public class Dictionary {
 	private String filePath;
 	private JSONObject dictionary;
+
+	public Dictionary() {
+	}
 
 	public Dictionary(String filePath) throws FileNotFoundException, IOException, ParseException {
 		this.filePath = filePath;
@@ -24,15 +27,15 @@ public class Dictionary {
 	}
 
 	/**
-	 * read dictionary file
+	 * Read dictionary file.
 	 * 
 	 * @param filePath
-	 * @return dictionary - json object
+	 * @return dictionary - JSON object
 	 * @throws ParseException
 	 */
 	public synchronized JSONObject readFile(String filePath) throws FileNotFoundException, IOException, ParseException {
 		JSONParser jsonParser = new JSONParser();
-		// read file and return the json object
+		// read file and return the JSON object
 		try {
 			File f = new File(filePath);
 			FileReader fr = new FileReader(f);
@@ -50,7 +53,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * query for a given word
+	 * Query for a given word.
 	 * 
 	 * @param word
 	 * @return response message
@@ -78,7 +81,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * remove a given word from the dictionary
+	 * Remove a given word from the dictionary.
 	 * 
 	 * @param word
 	 * @return response message
@@ -102,7 +105,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * Add a given word to the dictionary
+	 * Add a given word to the dictionary.
 	 * 
 	 * @param word
 	 * @param meaning
@@ -135,7 +138,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * check if a word is in the dictionary
+	 * Check if a word is in the dictionary.
 	 * 
 	 * @param word
 	 * @return boolean

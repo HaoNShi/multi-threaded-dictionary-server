@@ -80,12 +80,12 @@ public class ClientWindow extends JFrame {
 		btnDisconnect.addActionListener(new DisconnectActionListener());
 		btnDisconnect.setBounds(243, 305, 117, 29);
 		clientFrame.getContentPane().add(btnDisconnect);
-		
+
 		wordLabel = new JLabel("Word:");
 		wordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		wordLabel.setBounds(10, 26, 58, 15);
 		clientFrame.getContentPane().add(wordLabel);
-		
+
 		lblNewLabel = new JLabel("Definition:");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel.setBounds(10, 68, 73, 15);

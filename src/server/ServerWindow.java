@@ -24,7 +24,7 @@ public class ServerWindow extends JFrame {
 	private JButton stopBtn;
 	private Server server;
 	public final int PORT_MAX = 10000;
-	public final String PATH = "C:\\Users\\HaoNShi\\eclipse-workspace\\Dictionary\\src\\dictionary.json";
+	public final String PATH = "C:\\Users\\HaoNShi\\eclipse-workspace\\multi-threaded-dictionary-server\\src\\dictionary.json";
 	public final String ADDRESS = "localhost";
 	public final int PORT = 8088;
 

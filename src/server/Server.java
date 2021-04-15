@@ -10,7 +10,6 @@ import org.json.simple.parser.ParseException;
 
 /**
  * Server: Dictionary Server that is available for clients to use.
- *
  */
 public class Server implements Runnable {
 
@@ -25,11 +24,10 @@ public class Server implements Runnable {
 	}
 
 	/**
-	 * run the server
+	 * Run the server.
 	 */
 	public void run() {
 		try {
-			System.out.println("Server is running now...");
 			// server continues to wait and accept a connection
 			while (true) {
 				try {
@@ -47,9 +45,7 @@ public class Server implements Runnable {
 	}
 
 	/**
-	 * terminate the server
-	 * 
-	 * @throws Exception
+	 * Terminate the server.
 	 */
 	public void terminate() throws Exception {
 		try {
@@ -61,12 +57,5 @@ public class Server implements Runnable {
 			throw new Exception("Error: Server cannot be closed.");
 		}
 	}
-
-//Testing for server only:
-//	public static void main(String arg[]) throws IOException, ParseException {
-//        ServerSocket s = new ServerSocket(8000);
-//        Server sc = new Server(s, "/Users/christina/Desktop/COMP90015_DS/COMP90015_Project1/dictionary.json");
-//        new Thread(sc).start();
-//    }
 
 }

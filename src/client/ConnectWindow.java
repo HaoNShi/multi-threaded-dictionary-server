@@ -71,12 +71,12 @@ public class ConnectWindow extends JFrame {
 		btnConnect.addActionListener(new ConnectActionListener());
 		btnConnect.setBounds(150, 114, 122, 29);
 		connectFrame.getContentPane().add(btnConnect);
-		
+
 		addressLabel = new JLabel("Address:");
 		addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		addressLabel.setBounds(15, 24, 58, 15);
 		connectFrame.getContentPane().add(addressLabel);
-		
+
 		portLabel = new JLabel("Port:");
 		portLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		portLabel.setBounds(17, 65, 58, 15);
