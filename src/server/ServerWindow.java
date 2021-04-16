@@ -24,14 +24,18 @@ public class ServerWindow extends JFrame {
 	private JButton stopBtn;
 	private Server server;
 	public final int PORT_MAX = 10000;
-	public final String PATH = "src\\dictionary.json";
-	public final String ADDRESS = "localhost";
-	public final int PORT = 8088;
+	public static String PATH = "dictionary.json";
+	public static String ADDRESS = "localhost";
+	public static int PORT = 8088;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					if (args.length >= 2) {
+						PORT = Integer.parseInt(args[0]);
+						PATH = args[1];
+					}
 					ServerWindow window = new ServerWindow();
 					window.serverFrame.setVisible(true);
 				} catch (Exception e) {
@@ -58,14 +62,14 @@ public class ServerWindow extends JFrame {
 		// when the connect button is pressed, the server will be ready.
 		runBtn = new JButton("Run");
 		runBtn.addActionListener(new ConnectActionListener());
-		runBtn.setBounds(32, 224, 149, 29);
+		runBtn.setBounds(32, 242, 149, 29);
 		serverFrame.getContentPane().add(runBtn);
 
 		// when the disconnect button is pressed, the server will be unavailable.
 		stopBtn = new JButton("Stop");
 		stopBtn.setEnabled(false);
 		stopBtn.addActionListener(new DisconnectActionListener());
-		stopBtn.setBounds(236, 224, 149, 29);
+		stopBtn.setBounds(249, 242, 149, 29);
 		serverFrame.getContentPane().add(stopBtn);
 
 		String serverInfo = "<html><body>Address: " + ADDRESS + "<br>Port: " + PORT + "<br>Dictionary Path: " + PATH
@@ -73,12 +77,12 @@ public class ServerWindow extends JFrame {
 		infoLabel = new JLabel(serverInfo);
 		infoLabel.setVerticalAlignment(SwingConstants.TOP);
 		infoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-		infoLabel.setBounds(32, 23, 366, 73);
+		infoLabel.setBounds(32, 23, 366, 67);
 		serverFrame.getContentPane().add(infoLabel);
 
 		infoTextArea = new JTextArea();
 		infoTextArea.setEditable(false);
-		infoTextArea.setBounds(32, 106, 366, 108);
+		infoTextArea.setBounds(32, 100, 366, 132);
 		serverFrame.getContentPane().add(infoTextArea);
 
 	}
@@ -88,7 +92,6 @@ public class ServerWindow extends JFrame {
 	 */
 	private class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
 			if (e.getSource() == runBtn) {
 				// assign dictionary path to the dictionary
 				try {

@@ -25,6 +25,8 @@ public class ConnectWindow extends JFrame {
 	private final int PORT_MAX = 10000;
 	private JLabel addressLabel;
 	private JLabel portLabel;
+	public static String ADDRESS = "localhost";
+	public static int PORT = 8088;
 
 	/**
 	 * Launch the application.
@@ -33,6 +35,10 @@ public class ConnectWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					if (args.length >= 2) {
+						ADDRESS = args[0];
+						PORT = Integer.parseInt(args[1]);
+					}
 					new ConnectWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,14 +59,14 @@ public class ConnectWindow extends JFrame {
 
 		// input address
 		addressField = new JTextField();
-		addressField.setText("localhost");
+		addressField.setText(ADDRESS);
 		addressField.setBounds(83, 19, 320, 26);
 		connectFrame.getContentPane().add(addressField);
 		addressField.setColumns(10);
 
 		// input port number
 		portField = new JTextField();
-		portField.setText("8088");
+		portField.setText(Integer.toString(PORT));
 		portField.setColumns(10);
 		portField.setBounds(83, 60, 130, 26);
 		connectFrame.getContentPane().add(portField);
