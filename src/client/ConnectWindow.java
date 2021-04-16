@@ -12,16 +12,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Client main (contains login GUI for client)
+ * Connect window
+ * 
+ * Client entrance, enter the address and port to connect to the server.
  */
 public class ConnectWindow extends JFrame {
+	private static final long serialVersionUID = -4613468624372407369L;
 	private static Client client = new Client();
 	private static JFrame connectFrame;
-	private JTextField addressField;
-	private JTextField portField;
 	private JLabel addressLabel;
 	private JLabel portLabel;
-	private JButton btnConnect;
+	private JTextField addressField;
+	private JTextField portField;
+	private JButton connectBtn;
 	public static String ADDRESS = "localhost";
 	public static int PORT = 8088;
 	private final static int PORT_MAX = 10000;
@@ -45,7 +48,7 @@ public class ConnectWindow extends JFrame {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Create the frame.
 	 */
 	public ConnectWindow() {
 		connectFrame = new JFrame();
@@ -53,27 +56,6 @@ public class ConnectWindow extends JFrame {
 		connectFrame.setBounds(100, 100, 450, 210);
 		connectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		connectFrame.getContentPane().setLayout(null);
-
-		// input ADDRESS
-		addressField = new JTextField();
-		addressField.setText(ADDRESS);
-		addressField.setBounds(83, 19, 320, 26);
-		connectFrame.getContentPane().add(addressField);
-		addressField.setColumns(10);
-
-		// input port number
-		portField = new JTextField();
-		portField.setText(Integer.toString(PORT));
-		portField.setColumns(10);
-		portField.setBounds(83, 60, 130, 26);
-		connectFrame.getContentPane().add(portField);
-
-		// when connect button is pressed,
-		// connect the client to the server
-		btnConnect = new JButton("Connect");
-		btnConnect.addActionListener(new ConnectActionListener());
-		btnConnect.setBounds(150, 114, 122, 29);
-		connectFrame.getContentPane().add(btnConnect);
 
 		addressLabel = new JLabel("address:");
 		addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -85,15 +67,32 @@ public class ConnectWindow extends JFrame {
 		portLabel.setBounds(17, 65, 58, 15);
 		connectFrame.getContentPane().add(portLabel);
 
+		addressField = new JTextField();
+		addressField.setText(ADDRESS);
+		addressField.setBounds(83, 19, 320, 26);
+		connectFrame.getContentPane().add(addressField);
+		addressField.setColumns(10);
+
+		portField = new JTextField();
+		portField.setText(Integer.toString(PORT));
+		portField.setColumns(10);
+		portField.setBounds(83, 60, 130, 26);
+		connectFrame.getContentPane().add(portField);
+
+		connectBtn = new JButton("Connect");
+		connectBtn.addActionListener(new ConnectActionListener());
+		connectBtn.setBounds(150, 114, 122, 29);
+		connectFrame.getContentPane().add(connectBtn);
+
 		connectFrame.setVisible(true);
 	}
 
 	/**
-	 * React when connect button is pushed.
+	 * Handles when connect button is pressed.
 	 */
 	private class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnConnect) {
+			if (e.getSource() == connectBtn) {
 				String address = addressField.getText();
 				String port = portField.getText();
 				connect(address, port);
@@ -101,6 +100,9 @@ public class ConnectWindow extends JFrame {
 		}
 	}
 
+	/**
+	 * Connect server.
+	 */
 	private static void connect(String address, String port) {
 		// server accepts "localhost" and IP addresses
 		if (!address.equals("localhost") && (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {

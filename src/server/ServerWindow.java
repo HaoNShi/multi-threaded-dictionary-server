@@ -14,9 +14,10 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 /**
- * Server Page (contains server GUI)
+ * Server window
  */
 public class ServerWindow extends JFrame {
+	private static final long serialVersionUID = -6364208820722038520L;
 	private JFrame serverFrame;
 	private JLabel infoLabel;
 	private JTextArea infoTextArea;
@@ -28,6 +29,9 @@ public class ServerWindow extends JFrame {
 	public static String ADDRESS = "localhost";
 	public static int PORT = 8088;
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +49,9 @@ public class ServerWindow extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public ServerWindow() {
 		initialize();
 	}
@@ -59,19 +66,6 @@ public class ServerWindow extends JFrame {
 		serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		serverFrame.getContentPane().setLayout(null);
 
-		// when the connect button is pressed, the server will be ready.
-		runBtn = new JButton("Run");
-		runBtn.addActionListener(new ConnectActionListener());
-		runBtn.setBounds(32, 242, 149, 29);
-		serverFrame.getContentPane().add(runBtn);
-
-		// when the disconnect button is pressed, the server will be unavailable.
-		stopBtn = new JButton("Stop");
-		stopBtn.setEnabled(false);
-		stopBtn.addActionListener(new DisconnectActionListener());
-		stopBtn.setBounds(249, 242, 149, 29);
-		serverFrame.getContentPane().add(stopBtn);
-
 		String serverInfo = "<html><body>Address: " + ADDRESS + "<br>Port: " + PORT + "<br>Dictionary Path: " + PATH
 				+ "<body></html>";
 		infoLabel = new JLabel(serverInfo);
@@ -85,12 +79,22 @@ public class ServerWindow extends JFrame {
 		infoTextArea.setBounds(32, 100, 366, 132);
 		serverFrame.getContentPane().add(infoTextArea);
 
+		runBtn = new JButton("Run");
+		runBtn.addActionListener(new RunActionListener());
+		runBtn.setBounds(32, 242, 149, 29);
+		serverFrame.getContentPane().add(runBtn);
+
+		stopBtn = new JButton("Stop");
+		stopBtn.setEnabled(false);
+		stopBtn.addActionListener(new StopActionListener());
+		stopBtn.setBounds(249, 242, 149, 29);
+		serverFrame.getContentPane().add(stopBtn);
 	}
 
 	/**
 	 * Handles when connect button is pressed.
 	 */
-	private class ConnectActionListener implements ActionListener {
+	private class RunActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == runBtn) {
 				// assign dictionary path to the dictionary
@@ -110,9 +114,9 @@ public class ServerWindow extends JFrame {
 	}
 
 	/**
-	 * Handles when disconnect button is pressed.
+	 * Handles when stop button is pressed.
 	 */
-	private class DisconnectActionListener implements ActionListener {
+	private class StopActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == stopBtn) {
 				try {

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 /**
+ * Server
+ * 
  * Dictionary Server that is available for clients to use.
  */
 public class Server implements Runnable {
-
 	private Dictionary dict;
 	private ServerSocket socket;
 	private ArrayList<ServerThread> clients;
@@ -36,7 +37,7 @@ public class Server implements Runnable {
 					clients.add(server);
 					new Thread(server).start();
 				} catch (Exception e) {
-					throw new Exception("Error: client lost.");
+					throw new Exception("Client lost!");
 				}
 			}
 		} catch (Exception e) {
@@ -54,8 +55,7 @@ public class Server implements Runnable {
 			}
 			socket.close();
 		} catch (IOException g) {
-			throw new Exception("Error: Server cannot be closed.");
+			throw new Exception("Server cannot be closed!");
 		}
 	}
-
 }

@@ -9,6 +9,9 @@ import java.nio.charset.StandardCharsets;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * ServerThread
+ */
 public class ServerThread implements Runnable {
 	public Dictionary dict;
 	private Socket socket;
@@ -20,9 +23,6 @@ public class ServerThread implements Runnable {
 
 	/**
 	 * Parse the request to result.
-	 * 
-	 * @param request
-	 * @return
 	 */
 	public JSONObject parseRequest(JSONObject request) {
 		JSONObject result = null;
@@ -39,6 +39,9 @@ public class ServerThread implements Runnable {
 		return result;
 	}
 
+	/**
+	 * Run the server.
+	 */
 	public void run() {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -65,5 +68,4 @@ public class ServerThread implements Runnable {
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
-
 }

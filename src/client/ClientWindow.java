@@ -15,26 +15,28 @@ import javax.swing.JTextField;
 import org.json.simple.JSONObject;
 
 /**
- * After the client logged in, the client can do query/add/remove on the page.
+ * Client window
+ * 
+ * After the client login, the client can operate on the dictionary.
  */
 public class ClientWindow extends JFrame {
-
+	private static final long serialVersionUID = 8081172552102489822L;
 	private JFrame clientFrame;
-	private JTextField wordField;
-	private JTextArea desField;
-	private Client client;
-	private JButton btnQuery;
-	private JButton btnAdd;
-	private JButton btnRemove;
-	private JButton btnDisconnect;
-	private JButton btnUpdate;
 	private JLabel wordLabel;
 	private JLabel desLabel;
+	private JTextField wordField;
+	private JTextArea desField;
+	private JButton queryBtn;
+	private JButton addBtn;
+	private JButton removeBtn;
+	private JButton updateBtn;
+	private JButton disconnectBtn;
+	private Client client;
 	private String keyword;
 	private String description;
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public ClientWindow(Client client) {
 		initialize(client);
@@ -51,44 +53,6 @@ public class ClientWindow extends JFrame {
 		clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		clientFrame.getContentPane().setLayout(null);
 
-		// input word
-		wordField = new JTextField();
-		wordField.setBounds(96, 22, 335, 26);
-		clientFrame.getContentPane().add(wordField);
-		wordField.setColumns(10);
-
-		// input definition
-		desField = new JTextArea();
-		desField.setBounds(96, 68, 335, 241);
-		clientFrame.getContentPane().add(desField);
-		desField.setColumns(10);
-
-		// When query button pressed
-		btnQuery = new JButton("Query");
-		btnQuery.addActionListener(new QueryActionListener());
-		btnQuery.setBounds(455, 68, 100, 29);
-		clientFrame.getContentPane().add(btnQuery);
-
-		btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new AddActionListener());
-		btnAdd.setBounds(455, 107, 100, 29);
-		clientFrame.getContentPane().add(btnAdd);
-
-		btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new UpdateActionListener());
-		btnUpdate.setBounds(455, 185, 100, 29);
-		clientFrame.getContentPane().add(btnUpdate);
-
-		btnRemove = new JButton("Remove");
-		btnRemove.addActionListener(new RemoveActionListener());
-		btnRemove.setBounds(455, 146, 100, 29);
-		clientFrame.getContentPane().add(btnRemove);
-
-		btnDisconnect = new JButton("Disconnect");
-		btnDisconnect.addActionListener(new DisconnectActionListener());
-		btnDisconnect.setBounds(455, 280, 100, 29);
-		clientFrame.getContentPane().add(btnDisconnect);
-
 		wordLabel = new JLabel("Word:");
 		wordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		wordLabel.setBounds(28, 26, 58, 15);
@@ -99,16 +63,50 @@ public class ClientWindow extends JFrame {
 		desLabel.setBounds(10, 68, 100, 15);
 		clientFrame.getContentPane().add(desLabel);
 
-		clientFrame.setVisible(true);
+		wordField = new JTextField();
+		wordField.setBounds(96, 22, 335, 26);
+		clientFrame.getContentPane().add(wordField);
+		wordField.setColumns(10);
 
+		desField = new JTextArea();
+		desField.setBounds(96, 68, 335, 241);
+		clientFrame.getContentPane().add(desField);
+		desField.setColumns(10);
+
+		queryBtn = new JButton("Query");
+		queryBtn.addActionListener(new QueryActionListener());
+		queryBtn.setBounds(455, 68, 100, 29);
+		clientFrame.getContentPane().add(queryBtn);
+
+		addBtn = new JButton("Add");
+		addBtn.addActionListener(new AddActionListener());
+		addBtn.setBounds(455, 107, 100, 29);
+		clientFrame.getContentPane().add(addBtn);
+
+		removeBtn = new JButton("Remove");
+		removeBtn.addActionListener(new RemoveActionListener());
+		removeBtn.setBounds(455, 146, 100, 29);
+		clientFrame.getContentPane().add(removeBtn);
+
+		updateBtn = new JButton("Update");
+		updateBtn.addActionListener(new UpdateActionListener());
+		updateBtn.setBounds(455, 185, 100, 29);
+		clientFrame.getContentPane().add(updateBtn);
+
+		disconnectBtn = new JButton("Disconnect");
+		disconnectBtn.addActionListener(new DisconnectActionListener());
+		disconnectBtn.setBounds(455, 280, 100, 29);
+		clientFrame.getContentPane().add(disconnectBtn);
+
+		clientFrame.setVisible(true);
 	}
 
 	/**
-	 * Handles when query button is pushed.
+	 * Handles when query button is pressed.
 	 */
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnQuery) {
+			if (e.getSource() == queryBtn) {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				if (keyword.equals("")) {
@@ -135,11 +133,11 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * Handles when add button is pushed.
+	 * Handles when add button is pressed.
 	 */
 	private class AddActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnAdd) {
+			if (e.getSource() == addBtn) {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				description = desField.getText();
@@ -169,11 +167,11 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * Handles when remove button is pushed.
+	 * Handles when remove button is pressed.
 	 */
 	private class RemoveActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnRemove) {
+			if (e.getSource() == removeBtn) {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				if (keyword.equals("")) {
@@ -201,11 +199,11 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * Handles when update button is pushed.
+	 * Handles when update button is pressed.
 	 */
 	private class UpdateActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnUpdate) {
+			if (e.getSource() == updateBtn) {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				description = desField.getText();
@@ -235,11 +233,11 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * Handles when disconnect button is pushed.
+	 * Handles when disconnect button is pressed.
 	 */
 	private class DisconnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnDisconnect) {
+			if (e.getSource() == disconnectBtn) {
 
 				try {
 					client.terminate();

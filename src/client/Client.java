@@ -9,6 +9,9 @@ import java.nio.charset.StandardCharsets;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * Client
+ */
 public class Client {
 	private Socket socket;
 	private OutputStreamWriter wr;
@@ -18,10 +21,6 @@ public class Client {
 
 	/**
 	 * Start the client server.
-	 * 
-	 * @param address
-	 * @param port
-	 * @throws Exception
 	 */
 	public void start(String address, int port) throws Exception {
 		try {
@@ -29,21 +28,19 @@ public class Client {
 			this.socket = socket;
 			this.time = System.currentTimeMillis();
 		} catch (Exception e) {
-			throw new Exception("Error: invalid address.");
+			throw new Exception("Invalid address!");
 		}
 
 		try {
 			this.wr = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
 			this.br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (Exception e1) {
-			throw new Exception("Error: connection error.");
+			throw new Exception("Connection error!");
 		}
 	}
 
 	/**
 	 * Terminate the client.
-	 * 
-	 * @throws Exception
 	 */
 	public void terminate() throws Exception {
 		try {
@@ -51,16 +48,12 @@ public class Client {
 			br.close();
 			socket.close();
 		} catch (Exception e) {
-			throw new Exception("Error: socket cannot be closed.");
+			throw new Exception("Socket cannot be closed!");
 		}
 	}
 
 	/**
 	 * Client process request.
-	 * 
-	 * @param request
-	 * @return
-	 * @throws Exception
 	 */
 	public JSONObject request(JSONObject request) throws Exception {
 		try {
@@ -74,12 +67,11 @@ public class Client {
 				return result;
 			} else {
 				this.terminate();
-				throw new Exception("Error: connection error.");
+				throw new Exception("Connection error!");
 			}
 		} catch (Exception e) {
 			this.terminate();
-			throw new Exception("Error: connection error.");
+			throw new Exception("Connection error!");
 		}
 	}
-
 }

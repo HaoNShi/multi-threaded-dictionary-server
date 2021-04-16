@@ -10,9 +10,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
+ * Dictionary
+ * 
  * Read a JSON dictionary that supports query/add/remove functions.
  */
-
 public class Dictionary {
 	private JSONObject dictionary;
 
@@ -26,10 +27,6 @@ public class Dictionary {
 
 	/**
 	 * Read dictionary file.
-	 * 
-	 * @param filePath
-	 * @return dictionary - JSON object
-	 * @throws ParseException
 	 */
 	public synchronized JSONObject readFile(String filePath) throws FileNotFoundException, IOException, ParseException {
 		JSONParser jsonParser = new JSONParser();
@@ -51,9 +48,6 @@ public class Dictionary {
 
 	/**
 	 * Query for a given word.
-	 * 
-	 * @param word
-	 * @return response message
 	 */
 	public synchronized JSONObject query(String word) {
 		JSONObject message = new JSONObject();
@@ -73,10 +67,6 @@ public class Dictionary {
 
 	/**
 	 * Add a given word to the dictionary.
-	 * 
-	 * @param word
-	 * @param meaning
-	 * @return response message
 	 */
 	public synchronized JSONObject add(String word, String meaning) {
 		JSONObject message = new JSONObject();
@@ -96,9 +86,6 @@ public class Dictionary {
 
 	/**
 	 * Remove a given word from the dictionary.
-	 * 
-	 * @param word
-	 * @return response message
 	 */
 	public synchronized JSONObject remove(String word) {
 		JSONObject message = new JSONObject();
@@ -116,6 +103,9 @@ public class Dictionary {
 		}
 	}
 
+	/**
+	 * Update a given word to the dictionary.
+	 */
 	public synchronized JSONObject update(String word, String meaning) {
 		JSONObject message = new JSONObject();
 		if (!isInDict(word)) {
@@ -142,9 +132,6 @@ public class Dictionary {
 
 	/**
 	 * Check if a word is in the dictionary.
-	 * 
-	 * @param word
-	 * @return boolean
 	 */
 	public synchronized boolean isInDict(String word) {
 		return dictionary.get(word) != null;
