@@ -26,13 +26,15 @@ public class ServerThread implements Runnable {
 	 */
 	public JSONObject parseRequest(JSONObject request) {
 		JSONObject result = null;
-		String task = (String) request.get("Task");
-		if (task.equals("Query")) {
-			result = dict.query(request.get("Key").toString());
-		} else if (task.equals("Add")) {
-			result = dict.add(request.get("Key").toString(), request.get("Value").toString());
-		} else if (task.equals("Remove")) {
-			result = dict.remove(request.get("Key").toString());
+		String task = request.get("task").toString();
+		if (task.equals("query")) {
+			result = dict.query(request.get("key").toString());
+		} else if (task.equals("add")) {
+			result = dict.add(request.get("key").toString(), request.get("value").toString());
+		} else if (task.equals("remove")) {
+			result = dict.remove(request.get("key").toString());
+		} else if (task.equals("update")) {
+			result = dict.update(request.get("key").toString(), request.get("value").toString());
 		}
 		return result;
 	}

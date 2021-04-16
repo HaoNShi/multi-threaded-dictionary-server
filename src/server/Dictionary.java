@@ -39,7 +39,6 @@ public class Dictionary {
 			FileReader fr = new FileReader(f);
 			JSONObject jasonObject = (JSONObject) jsonParser.parse(fr);
 			return jasonObject;
-
 			// handle exceptions
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException("Please give valid dictionary path");
@@ -66,7 +65,7 @@ public class Dictionary {
 		} else {
 			// clearly indicate if the word was not found
 			message.put("operation", "query");
-			message.put("msg", "Word does not exist in the dictionary");
+			message.put("msg", "Word does not exist in the dictionary!");
 			message.put("state", "1");
 			return message;
 		}
@@ -83,13 +82,8 @@ public class Dictionary {
 		JSONObject message = new JSONObject();
 		if (isInDict(word)) {
 			message.put("operation", "add");
-			message.put("msg", "Word already exists in the dictionary");
+			message.put("msg", "Word already exists in the dictionary!");
 			message.put("state", "1");
-			return message;
-		} else if (meaning.equals("") || meaning == null) {
-			message.put("operation", "add");
-			message.put("msg", "Input cannot be null.");
-			message.put("state", "2");
 			return message;
 		} else {
 			dictionary.put(word, meaning);
@@ -116,8 +110,24 @@ public class Dictionary {
 			return message;
 		} else {
 			message.put("operation", "remove");
-			message.put("msg", "Word does not exist");
-			message.put("state", "2");
+			message.put("msg", "Word does not exist!");
+			message.put("state", "1");
+			return message;
+		}
+	}
+
+	public synchronized JSONObject update(String word, String meaning) {
+		JSONObject message = new JSONObject();
+		if (!isInDict(word)) {
+			message.put("operation", "update");
+			message.put("msg", "Word does not exist!");
+			message.put("state", "1");
+			return message;
+		} else {
+			dictionary.put(word, meaning);
+			message.put("operation", "update");
+			message.put("msg", "Word has been updated successfully.");
+			message.put("state", "0");
 			return message;
 		}
 	}
@@ -139,5 +149,4 @@ public class Dictionary {
 	public synchronized boolean isInDict(String word) {
 		return dictionary.get(word) != null;
 	}
-
 }
