@@ -14,14 +14,12 @@ import org.json.simple.parser.ParseException;
  */
 
 public class Dictionary {
-	private String filePath;
 	private JSONObject dictionary;
 
 	public Dictionary() {
 	}
 
 	public Dictionary(String filePath) throws FileNotFoundException, IOException, ParseException {
-		this.filePath = filePath;
 		this.dictionary = new JSONObject();
 		this.dictionary = readFile(filePath);
 	}
@@ -61,45 +59,25 @@ public class Dictionary {
 	public synchronized JSONObject query(String word, String meaning) {
 		JSONObject message = new JSONObject();
 		if (isInDict(word) && meaning == null) {
-			message.put("Query", "Success");
-			message.put(word, dictionary.get(word));
+			message.put("operation", "query");
+			message.put("msg", dictionary.get(word));
+			message.put("state", "0");
 			return message;
 		} else if (isInDict(word) && meaning != null) {
-			message.put("Query", "Failure");
-			message.put(word, "Word in dictionary. But please clear the definition field.");
+			message.put("operation", "query");
+			message.put("msg", "Word in dictionary. But please clear the definition field.");
+			message.put("state", "1");
 			return message;
 		} else if (!isInDict(word) && meaning != null) {
-			message.put("Query", "Failure");
-			message.put(word, "Word not in dictionary. Please clear the definition field. ");
+			message.put("operation", "query");
+			message.put("msg", "Word not in dictionary. Please clear the definition field. ");
+			message.put("state", "2");
 			return message;
 		} else {
 			// clearly indicate if the word was not found
-			message.put("Query", "Failure");
-			message.put(word, "Word does not exist in the dictionary");
-			return message;
-		}
-	}
-
-	/**
-	 * Remove a given word from the dictionary.
-	 * 
-	 * @param word
-	 * @return response message
-	 */
-	public synchronized JSONObject remove(String word, String meaning) {
-		JSONObject message = new JSONObject();
-		if (isInDict(word) && meaning == null) {
-			dictionary.remove(word);
-			message.put("Remove", "Success");
-			message.put(word, ": has been removed");
-			return message;
-		} else if (isInDict(word) && meaning != null) {
-			message.put("Remove", "Failure");
-			message.put(word, "Word is in the dictionary. But please clear the definition field.");
-			return message;
-		} else {
-			message.put("Remove", "Failure");
-			message.put(word, "Word does not exist");
+			message.put("operation", "query");
+			message.put("msg", "Word does not exist in the dictionary");
+			message.put("state", "3");
 			return message;
 		}
 	}
@@ -114,17 +92,47 @@ public class Dictionary {
 	public synchronized JSONObject add(String word, String meaning) {
 		JSONObject message = new JSONObject();
 		if (isInDict(word)) {
-			message.put("Add", "Failure");
-			message.put(word, "Word already exists in the dictionary");
+			message.put("operation", "add");
+			message.put("msg", "Word already exists in the dictionary");
+			message.put("state", "1");
 			return message;
 		} else if (!isInDict(word) && meaning != null) {
 			dictionary.put(word, meaning);
-			message.put("Add", "Success");
-			message.put(word, "Word has been added.");
+			message.put("operation", "add");
+			message.put("msg", "Word has been added.");
+			message.put("state", "0");
 			return message;
 		} else {
-			message.put("Add", "Failure");
-			message.put(word, "Input cannot be null.");
+			message.put("operation", "add");
+			message.put("msg", "Input cannot be null.");
+			message.put("state", "2");
+			return message;
+		}
+	}
+
+	/**
+	 * Remove a given word from the dictionary.
+	 * 
+	 * @param word
+	 * @return response message
+	 */
+	public synchronized JSONObject remove(String word, String meaning) {
+		JSONObject message = new JSONObject();
+		if (isInDict(word) && meaning == null) {
+			dictionary.remove(word);
+			message.put("operation", "remove");
+			message.put("msg", "\"" + word + "\" has been removed.");
+			message.put("state", "0");
+			return message;
+		} else if (isInDict(word) && meaning != null) {
+			message.put("operation", "remove");
+			message.put("msg", "Word is in the dictionary. But please clear the definition field.");
+			message.put("state", "1");
+			return message;
+		} else {
+			message.put("operation", "remove");
+			message.put("msg", "Word does not exist");
+			message.put("state", "2");
 			return message;
 		}
 	}

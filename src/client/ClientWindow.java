@@ -30,6 +30,7 @@ public class ClientWindow extends JFrame {
 	private JButton btnDisconnect;
 	private JLabel wordLabel;
 	private JLabel lblNewLabel;
+	private String keyword;
 
 	/**
 	 * Create the application.
@@ -103,14 +104,14 @@ public class ClientWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnQuery) {
 				JSONObject request = new JSONObject();
-				String keyword = wordField.getText();
+				keyword = wordField.getText();
 				request.put("Task", "Query");
 				request.put("Key", keyword);
 				try {
 					JSONObject reply = client.request(request);
-					String state = reply.get("Query").toString();
-					String msg = reply.get(keyword).toString();
-					if (state.equals("Success")) {
+					String state = reply.get("state").toString();
+					String msg = reply.get("msg").toString();
+					if (state.equals("0")) {
 						defField.setText(msg);
 					} else {
 						JOptionPane.showMessageDialog(clientFrame, msg);
@@ -127,21 +128,24 @@ public class ClientWindow extends JFrame {
 	 */
 	private class AddActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
 			if (e.getSource() == btnAdd) {
 				JSONObject request = new JSONObject();
+				keyword = wordField.getText();
 				request.put("Task", "Add");
-				request.put("Key", wordField.getText());
-				request.put("Value", defField.getText());
+				request.put("Key", keyword);
+				request.put("Value", keyword);
 				try {
 					JSONObject reply = client.request(request);
-					JOptionPane.showMessageDialog(clientFrame, reply.toJSONString());
+					String state = reply.get("state").toString();
+					String msg = reply.get("msg").toString();
+					if (state.equals("0")) {
+						JOptionPane.showMessageDialog(clientFrame, msg);
+					} else {
+						JOptionPane.showMessageDialog(clientFrame, msg);
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				wordField.setText("");
-				defField.setText("");
-
 			}
 		}
 	}
@@ -153,16 +157,21 @@ public class ClientWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnRemove) {
 				JSONObject request = new JSONObject();
+				keyword = wordField.getText();
 				request.put("Task", "Remove");
-				request.put("Key", wordField.getText());
+				request.put("Key", keyword);
 				try {
 					JSONObject reply = client.request(request);
-					JOptionPane.showMessageDialog(clientFrame, reply.toJSONString());
+					String state = reply.get("state").toString();
+					String msg = reply.get("msg").toString();
+					if (state.equals("0")) {
+						JOptionPane.showMessageDialog(clientFrame, msg);
+					} else {
+						JOptionPane.showMessageDialog(clientFrame, msg);
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				wordField.setText("");
-
 			}
 		}
 	}
