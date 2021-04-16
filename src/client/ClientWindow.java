@@ -31,6 +31,7 @@ public class ClientWindow extends JFrame {
 	private JLabel wordLabel;
 	private JLabel lblNewLabel;
 	private String keyword;
+	private String description;
 
 	/**
 	 * Create the application.
@@ -131,9 +132,10 @@ public class ClientWindow extends JFrame {
 			if (e.getSource() == btnAdd) {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
+				description = defField.getText();
 				request.put("Task", "Add");
 				request.put("Key", keyword);
-				request.put("Value", keyword);
+				request.put("Value", description);
 				try {
 					JSONObject reply = client.request(request);
 					String state = reply.get("state").toString();
