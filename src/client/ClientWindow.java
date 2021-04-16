@@ -15,8 +15,7 @@ import javax.swing.JTextField;
 import org.json.simple.JSONObject;
 
 /**
- * Request Page: after the client logged in, the client can do query/add/remove
- * on the page.
+ * After the client logged in, the client can do query/add/remove on the page.
  */
 public class ClientWindow extends JFrame {
 
@@ -99,7 +98,7 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * QueryActionListener: handles when query button is pushed
+	 * Handles when query button is pushed.
 	 */
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -115,6 +114,7 @@ public class ClientWindow extends JFrame {
 					if (state.equals("0")) {
 						defField.setText(msg);
 					} else {
+						defField.setText("");
 						JOptionPane.showMessageDialog(clientFrame, msg);
 					}
 				} catch (Exception e1) {
@@ -125,7 +125,7 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * AddActionListener: handles when add button is pushed
+	 * Handles when add button is pushed.
 	 */
 	private class AddActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -153,7 +153,7 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * RemoveActionListener: handles when remove button is pushed.
+	 * Handles when remove button is pushed.
 	 */
 	private class RemoveActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -167,8 +167,10 @@ public class ClientWindow extends JFrame {
 					String state = reply.get("state").toString();
 					String msg = reply.get("msg").toString();
 					if (state.equals("0")) {
+						defField.setText("");
 						JOptionPane.showMessageDialog(clientFrame, msg);
 					} else {
+						defField.setText("");
 						JOptionPane.showMessageDialog(clientFrame, msg);
 					}
 				} catch (Exception e1) {
@@ -179,7 +181,7 @@ public class ClientWindow extends JFrame {
 	}
 
 	/**
-	 * DisconnectActionListener: handles when disconnect button is pushed.
+	 * Handles when disconnect button is pushed.
 	 */
 	private class DisconnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {

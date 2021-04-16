@@ -19,7 +19,7 @@ public class ServerThread implements Runnable {
 	}
 
 	/**
-	 * parseRequest:parse the request to result
+	 * Parse the request to result.
 	 * 
 	 * @param request
 	 * @return
@@ -28,11 +28,11 @@ public class ServerThread implements Runnable {
 		JSONObject result = null;
 		String task = (String) request.get("Task");
 		if (task.equals("Query")) {
-			result = dict.query((String) request.get("Key"), (String) request.get("Value"));
+			result = dict.query(request.get("Key").toString());
 		} else if (task.equals("Add")) {
-			result = dict.add((String) request.get("Key"), (String) request.get("Value"));
+			result = dict.add(request.get("Key").toString(), request.get("Value").toString());
 		} else if (task.equals("Remove")) {
-			result = dict.remove((String) request.get("Key"), (String) request.get("Value"));
+			result = dict.remove(request.get("Key").toString());
 		}
 		return result;
 	}

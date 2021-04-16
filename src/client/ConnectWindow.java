@@ -86,8 +86,7 @@ public class ConnectWindow extends JFrame {
 	}
 
 	/**
-	 * ConnectActionListener: react when connect button is pushed.
-	 *
+	 * React when connect button is pushed.
 	 */
 	private class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -98,7 +97,7 @@ public class ConnectWindow extends JFrame {
 				if (!portField.getText().equals("")) {
 					port = Integer.parseInt(portField.getText());
 				}
-				// server accepts "localhost" and ip addresses
+				// server accepts "localhost" and IP addresses
 				if (!address.equals("localhost")
 						&& (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {
 					JOptionPane.showMessageDialog(connectFrame, "Error: Invalid address.");

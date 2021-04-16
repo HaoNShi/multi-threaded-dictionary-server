@@ -24,7 +24,7 @@ public class ServerWindow extends JFrame {
 	private JButton stopBtn;
 	private Server server;
 	public final int PORT_MAX = 10000;
-	public final String PATH = "C:\\Users\\HaoNShi\\eclipse-workspace\\multi-threaded-dictionary-server\\src\\dictionary.json";
+	public final String PATH = "src\\dictionary.json";
 	public final String ADDRESS = "localhost";
 	public final int PORT = 8088;
 
@@ -84,8 +84,7 @@ public class ServerWindow extends JFrame {
 	}
 
 	/**
-	 * ConnectActionListener: handles when connect button is pressed.
-	 *
+	 * Handles when connect button is pressed.
 	 */
 	private class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -99,7 +98,7 @@ public class ServerWindow extends JFrame {
 					infoTextArea.setText("Server is running...");
 					runBtn.setEnabled(false);
 					stopBtn.setEnabled(true);
-					JOptionPane.showMessageDialog(serverFrame, "Server is running...");
+					JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!");
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(serverFrame, "Error: invalid file path.");
 				}
@@ -108,8 +107,7 @@ public class ServerWindow extends JFrame {
 	}
 
 	/**
-	 * DisconnectActionListener: handles when disconnect button is pressed.
-	 *
+	 * Handles when disconnect button is pressed.
 	 */
 	private class DisconnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -118,7 +116,7 @@ public class ServerWindow extends JFrame {
 					if (server != null) {
 						server.terminate();
 						infoTextArea.setText(infoTextArea.getText() + "\nServer is closed.");
-						JOptionPane.showMessageDialog(serverFrame, "Server is closed.");
+						JOptionPane.showMessageDialog(serverFrame, "Server terminated.");
 					} else {
 						infoTextArea.setText(infoTextArea.getText() + "\nServer not availiable.");
 						JOptionPane.showMessageDialog(serverFrame, "Server not availiable.");

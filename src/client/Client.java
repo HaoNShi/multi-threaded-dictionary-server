@@ -17,7 +17,7 @@ public class Client {
 	public final int TIME_LIMIT = 100000;
 
 	/**
-	 * start: start the client server
+	 * Start the client server.
 	 * 
 	 * @param address
 	 * @param port
@@ -41,7 +41,7 @@ public class Client {
 	}
 
 	/**
-	 * terminate the client
+	 * Terminate the client.
 	 * 
 	 * @throws Exception
 	 */
@@ -56,7 +56,7 @@ public class Client {
 	}
 
 	/**
-	 * Client process request
+	 * Client process request.
 	 * 
 	 * @param request
 	 * @return

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 /**
- * Server: Dictionary Server that is available for clients to use.
+ * Dictionary Server that is available for clients to use.
  */
 public class Server implements Runnable {
 
