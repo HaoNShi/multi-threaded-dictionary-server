@@ -15,18 +15,16 @@ import javax.swing.JTextField;
  * Client main (contains login GUI for client)
  */
 public class ConnectWindow extends JFrame {
-	private Client client = new Client();
-	private JFrame connectFrame;
+	private static Client client = new Client();
+	private static JFrame connectFrame;
 	private JTextField addressField;
 	private JTextField portField;
-	private JButton btnConnect;
-	private String address;
-	private int port;
-	private final int PORT_MAX = 10000;
 	private JLabel addressLabel;
 	private JLabel portLabel;
+	private JButton btnConnect;
 	public static String ADDRESS = "localhost";
 	public static int PORT = 8088;
+	private final static int PORT_MAX = 10000;
 
 	/**
 	 * Launch the application.
@@ -35,11 +33,10 @@ public class ConnectWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					if (args.length >= 2) {
-						ADDRESS = args[0];
-						PORT = Integer.parseInt(args[1]);
-					}
 					new ConnectWindow();
+					if (args.length >= 2) {
+						connect(args[0], args[1]);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +54,7 @@ public class ConnectWindow extends JFrame {
 		connectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		connectFrame.getContentPane().setLayout(null);
 
-		// input address
+		// input ADDRESS
 		addressField = new JTextField();
 		addressField.setText(ADDRESS);
 		addressField.setBounds(83, 19, 320, 26);
@@ -78,7 +75,7 @@ public class ConnectWindow extends JFrame {
 		btnConnect.setBounds(150, 114, 122, 29);
 		connectFrame.getContentPane().add(btnConnect);
 
-		addressLabel = new JLabel("Address:");
+		addressLabel = new JLabel("address:");
 		addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		addressLabel.setBounds(15, 24, 58, 15);
 		connectFrame.getContentPane().add(addressLabel);
@@ -97,30 +94,32 @@ public class ConnectWindow extends JFrame {
 	private class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnConnect) {
-				// server connection becomes available
-				// if the address and port number are valid
-				address = addressField.getText();
-				if (!portField.getText().equals("")) {
-					port = Integer.parseInt(portField.getText());
-				}
-				// server accepts "localhost" and IP addresses
-				if (!address.equals("localhost")
-						&& (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {
-					JOptionPane.showMessageDialog(connectFrame, "Error: Invalid address.");
-					// port number must be digits in [0-10000]
-				} else if (!portField.getText().matches("^[0-9]+$")) {
-					JOptionPane.showMessageDialog(connectFrame, "Error: port number must be digits.");
-				} else if (port < 0 || port > PORT_MAX) {
-					JOptionPane.showMessageDialog(connectFrame, "Error: port number must be [0-10000].");
-				} else {
-					try {
-						client.start(address, port);
-						connectFrame.setVisible(false);
-						new ClientWindow(client);
-					} catch (Exception invalidInputs) {
-						// Invalid inputs, show errors.
-						JOptionPane.showMessageDialog(connectFrame, "Error: Please check the address and port.");
-					}
+				String address = addressField.getText();
+				String port = portField.getText();
+				connect(address, port);
+			}
+		}
+	}
+
+	private static void connect(String address, String port) {
+		// server accepts "localhost" and IP addresses
+		if (!address.equals("localhost") && (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {
+			JOptionPane.showMessageDialog(connectFrame, "Invalid address!");
+		} else if (port.equals("") || !port.matches("^[0-9]+$")) {
+			JOptionPane.showMessageDialog(connectFrame, "Port number must be positive integer!");
+		} else {
+			ADDRESS = address;
+			PORT = Integer.parseInt(port);
+			if (PORT > PORT_MAX) {
+				JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of ports!");
+			} else {
+				try {
+					client.start(ADDRESS, PORT);
+					connectFrame.setVisible(false);
+					new ClientWindow(client);
+				} catch (Exception invalidInputs) {
+					// Invalid inputs, show errors.
+					JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the address and port.");
 				}
 			}
 		}
