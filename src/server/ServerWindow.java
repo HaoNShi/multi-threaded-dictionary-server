@@ -67,7 +67,7 @@ public class ServerWindow extends JFrame {
 		serverFrame.setLocationRelativeTo(null);
 		serverFrame.getContentPane().setLayout(null);
 
-		String serverInfo = "<html><body>Address : " + ADDRESS + "&emsp &emsp &emsp &emsp &emsp &emsp Port : " + PORT 
+		String serverInfo = "<html><body>Address : " + ADDRESS + "&emsp &emsp &emsp &emsp &emsp &emsp Port : " + PORT
 				+ "<br><br>Dictionary path : " + PATH + "<body></html>";
 		infoLabel = new JLabel(serverInfo);
 		infoLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -108,7 +108,7 @@ public class ServerWindow extends JFrame {
 					stopBtn.setEnabled(true);
 					JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!", "Message", 1);
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(serverFrame, "invalid file path or port.", "Error", 0);
+					JOptionPane.showMessageDialog(serverFrame, "Invalid file path or port!", "Error", 0);
 				}
 			}
 		}
@@ -127,11 +127,12 @@ public class ServerWindow extends JFrame {
 						JOptionPane.showMessageDialog(serverFrame, "Server terminated.", "Message", 1);
 					} else {
 						infoTextArea.setText(infoTextArea.getText() + "\nServer not availiable.");
-						JOptionPane.showMessageDialog(serverFrame, "Server not availiable.", "Warning", 2);
+						JOptionPane.showMessageDialog(serverFrame, "Server not availiable!", "Warning", 2);
 					}
 				} catch (Exception e2) {
 					infoTextArea.setText(infoTextArea.getText() + "\nError occurs when disconnecting the server.");
-					JOptionPane.showMessageDialog(serverFrame, "Error occurs when disconnecting the server.", "Error", 0);
+					JOptionPane.showMessageDialog(serverFrame, "Error occurs when disconnecting the server!", "Error",
+							0);
 				} finally {
 					runBtn.setEnabled(true);
 					stopBtn.setEnabled(false);

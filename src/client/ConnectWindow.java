@@ -114,7 +114,8 @@ public class ConnectWindow extends JFrame {
 			ADDRESS = address;
 			PORT = Integer.parseInt(port);
 			if (PORT > PORT_MAX) {
-				JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of port!\n(port<10000)", "Warning", 2);
+				JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of port!\n(port<10000)",
+						"Warning", 2);
 			} else {
 				try {
 					client.start(ADDRESS, PORT);
@@ -122,7 +123,8 @@ public class ConnectWindow extends JFrame {
 					new ClientWindow(client);
 				} catch (Exception invalidInputs) {
 					// when the port is not correct or server is closed
-					JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the port or server.", "Warning", 2);
+					JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the port or server.",
+							"Warning", 2);
 				}
 			}
 		}

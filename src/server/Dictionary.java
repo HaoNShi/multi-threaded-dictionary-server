@@ -16,15 +16,15 @@ import org.json.simple.parser.ParseException;
  */
 public class Dictionary {
 	private JSONObject dictionary;
-	
+
 	public Dictionary() {
 	}
-	
+
 	public Dictionary(String filePath) throws FileNotFoundException, IOException, ParseException {
 		this.dictionary = new JSONObject();
 		this.dictionary = readFile(filePath);
 	}
-	
+
 	public synchronized JSONObject getDictionary() {
 		return dictionary;
 	}
@@ -32,7 +32,7 @@ public class Dictionary {
 	public synchronized void setDictionary(JSONObject dictionary) {
 		this.dictionary = dictionary;
 	}
-	
+
 	/**
 	 * Check if a word is in the dictionary.
 	 */
@@ -49,14 +49,14 @@ public class Dictionary {
 		try {
 			File f = new File(filePath);
 			FileReader fr = new FileReader(f);
-			JSONObject jasonObject = (JSONObject) jsonParser.parse(fr);
-			return jasonObject;
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(fr);
+			return jsonObject;
 		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("input correct path");
+			throw new FileNotFoundException("File not found!");
 		} catch (IOException e) {
-			throw new IOException("it's not a JSON file.");
+			throw new IOException("File type error!");
 		} catch (ParseException e) {
-			throw new ParseException(0, "it's not a JSON file.");
+			throw new ParseException(0, "JSON format error!");
 		}
 	}
 

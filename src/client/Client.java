@@ -67,7 +67,7 @@ public class Client {
 				return result;
 			} else {
 				this.terminate();
-				throw new Exception("time out!");
+				throw new Exception("Time out!");
 			}
 		} catch (Exception e) {
 			this.terminate();

@@ -20,7 +20,7 @@ public class ServerThread implements Runnable {
 		this.dict = dict;
 		this.socket = socket;
 	}
-	
+
 	public Socket getSocket() {
 		return socket;
 	}
@@ -69,4 +69,3 @@ public class ServerThread implements Runnable {
 		}
 	}
 }
-
