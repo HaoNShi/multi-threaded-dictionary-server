@@ -49,17 +49,18 @@ public class ClientWindow extends JFrame {
 		this.client = client;
 		clientFrame = new JFrame();
 		clientFrame.setTitle("Client");
-		clientFrame.setBounds(100, 100, 590, 370);
+		clientFrame.setBounds(100, 100, 590, 380);
 		clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		clientFrame.setLocationRelativeTo(null);
 		clientFrame.getContentPane().setLayout(null);
 
 		wordLabel = new JLabel("Word:");
-		wordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		wordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		wordLabel.setBounds(28, 26, 58, 15);
 		clientFrame.getContentPane().add(wordLabel);
 
 		desLabel = new JLabel("Description:");
-		desLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		desLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		desLabel.setBounds(10, 68, 100, 15);
 		clientFrame.getContentPane().add(desLabel);
 
@@ -97,7 +98,6 @@ public class ClientWindow extends JFrame {
 		disconnectBtn.addActionListener(new DisconnectActionListener());
 		disconnectBtn.setBounds(455, 280, 100, 29);
 		clientFrame.getContentPane().add(disconnectBtn);
-
 		clientFrame.setVisible(true);
 	}
 
@@ -110,7 +110,7 @@ public class ClientWindow extends JFrame {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				if (keyword.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
 				} else {
 					request.put("task", "query");
 					request.put("key", keyword);
@@ -122,7 +122,7 @@ public class ClientWindow extends JFrame {
 							desField.setText(msg);
 						} else {
 							desField.setText("");
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -142,9 +142,9 @@ public class ClientWindow extends JFrame {
 				keyword = wordField.getText();
 				description = desField.getText();
 				if (keyword.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
 				} else if (description.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", 2);
 				} else {
 					request.put("task", "add");
 					request.put("key", keyword);
@@ -154,9 +154,9 @@ public class ClientWindow extends JFrame {
 						String state = reply.get("state").toString();
 						String msg = reply.get("msg").toString();
 						if (state.equals("0")) {
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						} else {
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -175,7 +175,7 @@ public class ClientWindow extends JFrame {
 				JSONObject request = new JSONObject();
 				keyword = wordField.getText();
 				if (keyword.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
 				} else {
 					request.put("task", "remove");
 					request.put("key", keyword);
@@ -185,10 +185,10 @@ public class ClientWindow extends JFrame {
 						String msg = reply.get("msg").toString();
 						if (state.equals("0")) {
 							desField.setText("");
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						} else {
 							desField.setText("");
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -208,9 +208,9 @@ public class ClientWindow extends JFrame {
 				keyword = wordField.getText();
 				description = desField.getText();
 				if (keyword.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
 				} else if (description.equals("")) {
-					JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!");
+					JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", 2);
 				} else {
 					request.put("task", "update");
 					request.put("key", keyword);
@@ -220,9 +220,9 @@ public class ClientWindow extends JFrame {
 						String state = reply.get("state").toString();
 						String msg = reply.get("msg").toString();
 						if (state.equals("0")) {
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						} else {
-							JOptionPane.showMessageDialog(clientFrame, msg);
+							JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -245,8 +245,9 @@ public class ClientWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} finally {
-					clientFrame.dispatchEvent(new WindowEvent(clientFrame, WindowEvent.WINDOW_CLOSING));
+					//clientFrame.dispatchEvent(new WindowEvent(clientFrame, WindowEvent.WINDOW_CLOSING));
 					clientFrame.setVisible(false);
+					new ConnectWindow();
 				}
 			}
 		}

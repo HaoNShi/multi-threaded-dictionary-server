@@ -16,13 +16,28 @@ import org.json.simple.parser.ParseException;
  */
 public class Dictionary {
 	private JSONObject dictionary;
-
+	
 	public Dictionary() {
 	}
-
+	
 	public Dictionary(String filePath) throws FileNotFoundException, IOException, ParseException {
 		this.dictionary = new JSONObject();
 		this.dictionary = readFile(filePath);
+	}
+	
+	public synchronized JSONObject getDictionary() {
+		return dictionary;
+	}
+
+	public synchronized void setDictionary(JSONObject dictionary) {
+		this.dictionary = dictionary;
+	}
+	
+	/**
+	 * Check if a word is in the dictionary.
+	 */
+	public synchronized boolean isInDict(String word) {
+		return dictionary.get(word) != null;
 	}
 
 	/**
@@ -36,13 +51,12 @@ public class Dictionary {
 			FileReader fr = new FileReader(f);
 			JSONObject jasonObject = (JSONObject) jsonParser.parse(fr);
 			return jasonObject;
-			// handle exceptions
 		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("Please give valid dictionary path");
+			throw new FileNotFoundException("input correct path");
 		} catch (IOException e) {
-			throw new IOException("File type error. Please make sure it's JSON file.");
+			throw new IOException("it's not a JSON file.");
 		} catch (ParseException e) {
-			throw new ParseException(0, "File type error. Please make sure it's JSON file.");
+			throw new ParseException(0, "it's not a JSON file.");
 		}
 	}
 
@@ -120,20 +134,5 @@ public class Dictionary {
 			message.put("state", "0");
 			return message;
 		}
-	}
-
-	public synchronized JSONObject getDictionary() {
-		return dictionary;
-	}
-
-	public synchronized void setDictionary(JSONObject dictionary) {
-		this.dictionary = dictionary;
-	}
-
-	/**
-	 * Check if a word is in the dictionary.
-	 */
-	public synchronized boolean isInDict(String word) {
-		return dictionary.get(word) != null;
 	}
 }

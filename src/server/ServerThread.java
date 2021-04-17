@@ -20,6 +20,14 @@ public class ServerThread implements Runnable {
 		this.dict = dict;
 		this.socket = socket;
 	}
+	
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
 
 	/**
 	 * Parse the request to result.
@@ -60,12 +68,5 @@ public class ServerThread implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
-	public Socket getSocket() {
-		return socket;
-	}
-
-	public void setSocket(Socket socket) {
-		this.socket = socket;
-	}
 }
+

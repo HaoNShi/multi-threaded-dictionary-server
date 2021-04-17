@@ -55,15 +55,16 @@ public class ConnectWindow extends JFrame {
 		connectFrame.setTitle("Connect");
 		connectFrame.setBounds(100, 100, 450, 210);
 		connectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		connectFrame.setLocationRelativeTo(null);
 		connectFrame.getContentPane().setLayout(null);
 
 		addressLabel = new JLabel("address:");
-		addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		addressLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		addressLabel.setBounds(15, 24, 58, 15);
 		connectFrame.getContentPane().add(addressLabel);
 
 		portLabel = new JLabel("Port:");
-		portLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		portLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		portLabel.setBounds(17, 65, 58, 15);
 		connectFrame.getContentPane().add(portLabel);
 
@@ -106,22 +107,22 @@ public class ConnectWindow extends JFrame {
 	private static void connect(String address, String port) {
 		// server accepts "localhost" and IP addresses
 		if (!address.equals("localhost") && (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {
-			JOptionPane.showMessageDialog(connectFrame, "Invalid address!");
+			JOptionPane.showMessageDialog(connectFrame, "Invalid address!", "Error", 0);
 		} else if (port.equals("") || !port.matches("^[0-9]+$")) {
-			JOptionPane.showMessageDialog(connectFrame, "Port number must be positive integer!");
+			JOptionPane.showMessageDialog(connectFrame, "Port number must be positive integer!", "Error", 0);
 		} else {
 			ADDRESS = address;
 			PORT = Integer.parseInt(port);
 			if (PORT > PORT_MAX) {
-				JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of ports!");
+				JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of port!\n(port<10000)", "Warning", 2);
 			} else {
 				try {
 					client.start(ADDRESS, PORT);
 					connectFrame.setVisible(false);
 					new ClientWindow(client);
 				} catch (Exception invalidInputs) {
-					// Invalid inputs, show errors.
-					JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the address and port.");
+					// when the port is not correct or server is closed
+					JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the port or server.", "Warning", 2);
 				}
 			}
 		}

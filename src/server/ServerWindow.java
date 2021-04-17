@@ -62,32 +62,33 @@ public class ServerWindow extends JFrame {
 	private void initialize() {
 		serverFrame = new JFrame();
 		serverFrame.setTitle("Server");
-		serverFrame.setBounds(100, 100, 450, 330);
+		serverFrame.setBounds(100, 100, 492, 346);
 		serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		serverFrame.setLocationRelativeTo(null);
 		serverFrame.getContentPane().setLayout(null);
 
-		String serverInfo = "<html><body>Address: " + ADDRESS + "<br>Port: " + PORT + "<br>Dictionary Path: " + PATH
-				+ "<body></html>";
+		String serverInfo = "<html><body>Address : " + ADDRESS + "&emsp &emsp &emsp &emsp &emsp &emsp Port : " + PORT 
+				+ "<br><br>Dictionary path : " + PATH + "<body></html>";
 		infoLabel = new JLabel(serverInfo);
 		infoLabel.setVerticalAlignment(SwingConstants.TOP);
-		infoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-		infoLabel.setBounds(32, 23, 366, 67);
+		infoLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		infoLabel.setBounds(37, 29, 393, 61);
 		serverFrame.getContentPane().add(infoLabel);
 
 		infoTextArea = new JTextArea();
 		infoTextArea.setEditable(false);
-		infoTextArea.setBounds(32, 100, 366, 132);
+		infoTextArea.setBounds(37, 100, 393, 132);
 		serverFrame.getContentPane().add(infoTextArea);
 
 		runBtn = new JButton("Run");
 		runBtn.addActionListener(new RunActionListener());
-		runBtn.setBounds(32, 242, 149, 29);
+		runBtn.setBounds(37, 253, 149, 29);
 		serverFrame.getContentPane().add(runBtn);
 
 		stopBtn = new JButton("Stop");
 		stopBtn.setEnabled(false);
 		stopBtn.addActionListener(new StopActionListener());
-		stopBtn.setBounds(249, 242, 149, 29);
+		stopBtn.setBounds(281, 253, 149, 29);
 		serverFrame.getContentPane().add(stopBtn);
 	}
 
@@ -105,9 +106,9 @@ public class ServerWindow extends JFrame {
 					infoTextArea.setText("Server is running...");
 					runBtn.setEnabled(false);
 					stopBtn.setEnabled(true);
-					JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!");
+					JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!", "Message", 1);
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(serverFrame, "Error: invalid file path.");
+					JOptionPane.showMessageDialog(serverFrame, "invalid file path or port.", "Error", 0);
 				}
 			}
 		}
@@ -123,14 +124,14 @@ public class ServerWindow extends JFrame {
 					if (server != null) {
 						server.terminate();
 						infoTextArea.setText(infoTextArea.getText() + "\nServer is closed.");
-						JOptionPane.showMessageDialog(serverFrame, "Server terminated.");
+						JOptionPane.showMessageDialog(serverFrame, "Server terminated.", "Message", 1);
 					} else {
 						infoTextArea.setText(infoTextArea.getText() + "\nServer not availiable.");
-						JOptionPane.showMessageDialog(serverFrame, "Server not availiable.");
+						JOptionPane.showMessageDialog(serverFrame, "Server not availiable.", "Warning", 2);
 					}
 				} catch (Exception e2) {
 					infoTextArea.setText(infoTextArea.getText() + "\nError occurs when disconnecting the server.");
-					JOptionPane.showMessageDialog(serverFrame, "Error occurs when disconnecting the server.");
+					JOptionPane.showMessageDialog(serverFrame, "Error occurs when disconnecting the server.", "Error", 0);
 				} finally {
 					runBtn.setEnabled(true);
 					stopBtn.setEnabled(false);

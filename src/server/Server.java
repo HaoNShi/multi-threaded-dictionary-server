@@ -37,7 +37,7 @@ public class Server implements Runnable {
 					clients.add(server);
 					new Thread(server).start();
 				} catch (Exception e) {
-					throw new Exception("Client lost!");
+					throw new Exception("Server is closed and client disconnect!");
 				}
 			}
 		} catch (Exception e) {

@@ -17,7 +17,7 @@ public class Client {
 	private OutputStreamWriter wr;
 	private BufferedReader br;
 	private double time;
-	public final int TIME_LIMIT = 100000;
+	public final int TIME_LIMIT = 10000000;
 
 	/**
 	 * Start the client server.
@@ -67,7 +67,7 @@ public class Client {
 				return result;
 			} else {
 				this.terminate();
-				throw new Exception("Connection error!");
+				throw new Exception("time out!");
 			}
 		} catch (Exception e) {
 			this.terminate();
