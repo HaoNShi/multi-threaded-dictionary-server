@@ -24,8 +24,7 @@ public class Client {
      */
     public void start(String address, int port) throws Exception {
         try {
-            Socket socket = new Socket(address, port);
-            this.socket = socket;
+            this.socket = new Socket(address, port);
             this.time = System.currentTimeMillis();
         } catch (Exception e) {
             throw new Exception("Invalid address!");
@@ -63,8 +62,7 @@ public class Client {
                 wr.flush();
                 String content = br.readLine();
                 JSONParser jsonParser = new JSONParser();
-                JSONObject result = (JSONObject) jsonParser.parse(content);
-                return result;
+                return (JSONObject) jsonParser.parse(content);
             } else {
                 this.terminate();
                 throw new Exception("Time out!");

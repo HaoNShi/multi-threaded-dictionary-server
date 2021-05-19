@@ -2,7 +2,6 @@ package org.unimelb.dictionary.server;
 
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,7 +20,7 @@ public class Server implements Runnable {
     public Server(ServerSocket socket, String filepath) throws IOException, ParseException {
         this.dict = new Dictionary(filepath);
         this.socket = socket;
-        this.clients = new ArrayList<ServerThread>();
+        this.clients = new ArrayList<>();
     }
 
     /**

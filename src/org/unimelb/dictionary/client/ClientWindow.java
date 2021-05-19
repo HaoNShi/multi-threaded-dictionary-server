@@ -103,7 +103,7 @@ public class ClientWindow extends JFrame {
                 JSONObject request = new JSONObject();
                 keyword = wordField.getText();
                 if (keyword.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     request.put("task", "query");
                     request.put("key", keyword);
@@ -115,7 +115,7 @@ public class ClientWindow extends JFrame {
                             desField.setText(msg);
                         } else {
                             desField.setText("");
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -135,9 +135,9 @@ public class ClientWindow extends JFrame {
                 keyword = wordField.getText();
                 description = desField.getText();
                 if (keyword.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else if (description.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     request.put("task", "add");
                     request.put("key", keyword);
@@ -147,9 +147,9 @@ public class ClientWindow extends JFrame {
                         String state = reply.get("state").toString();
                         String msg = reply.get("msg").toString();
                         if (state.equals("0")) {
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -168,7 +168,7 @@ public class ClientWindow extends JFrame {
                 JSONObject request = new JSONObject();
                 keyword = wordField.getText();
                 if (keyword.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     request.put("task", "remove");
                     request.put("key", keyword);
@@ -178,10 +178,10 @@ public class ClientWindow extends JFrame {
                         String msg = reply.get("msg").toString();
                         if (state.equals("0")) {
                             desField.setText("");
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
                             desField.setText("");
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -201,9 +201,9 @@ public class ClientWindow extends JFrame {
                 keyword = wordField.getText();
                 description = desField.getText();
                 if (keyword.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Word cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else if (description.equals("")) {
-                    JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", 2);
+                    JOptionPane.showMessageDialog(clientFrame, "Description cannot be empty!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     request.put("task", "update");
                     request.put("key", keyword);
@@ -213,9 +213,9 @@ public class ClientWindow extends JFrame {
                         String state = reply.get("state").toString();
                         String msg = reply.get("msg").toString();
                         if (state.equals("0")) {
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", 2);
+                            JOptionPane.showMessageDialog(clientFrame, msg, "Warning", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -234,7 +234,6 @@ public class ClientWindow extends JFrame {
                 try {
                     client.terminate();
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 } finally {
                     // clientFrame.dispatchEvent(new WindowEvent(clientFrame, WindowEvent.WINDOW_CLOSING));

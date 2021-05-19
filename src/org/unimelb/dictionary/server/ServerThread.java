@@ -35,14 +35,19 @@ public class ServerThread implements Runnable {
     public JSONObject parseRequest(JSONObject request) {
         JSONObject result = null;
         String task = request.get("task").toString();
-        if (task.equals("query")) {
-            result = dict.query(request.get("key").toString());
-        } else if (task.equals("add")) {
-            result = dict.add(request.get("key").toString(), request.get("value").toString());
-        } else if (task.equals("remove")) {
-            result = dict.remove(request.get("key").toString());
-        } else if (task.equals("update")) {
-            result = dict.update(request.get("key").toString(), request.get("value").toString());
+        switch (task) {
+            case "query":
+                result = dict.query(request.get("key").toString());
+                break;
+            case "add":
+                result = dict.add(request.get("key").toString(), request.get("value").toString());
+                break;
+            case "remove":
+                result = dict.remove(request.get("key").toString());
+                break;
+            case "update":
+                result = dict.update(request.get("key").toString(), request.get("value").toString());
+                break;
         }
         return result;
     }

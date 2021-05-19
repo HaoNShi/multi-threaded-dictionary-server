@@ -49,8 +49,7 @@ public class Dictionary {
         try {
             File f = new File(filePath);
             FileReader fr = new FileReader(f);
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(fr);
-            return jsonObject;
+            return (JSONObject) jsonParser.parse(fr);
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("File not found!");
         } catch (IOException e) {

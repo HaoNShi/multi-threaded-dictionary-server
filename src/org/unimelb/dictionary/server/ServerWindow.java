@@ -11,7 +11,7 @@ import java.net.ServerSocket;
  */
 public class ServerWindow extends JFrame {
     private static final long serialVersionUID = -6364208820722038520L;
-    public static String PATH = "dictionary.json";
+    public static String PATH = "resource/dictionary.json";
     public static String ADDRESS = "localhost";
     public static int PORT = 8088;
     public final int PORT_MAX = 10000;
@@ -60,12 +60,12 @@ public class ServerWindow extends JFrame {
         serverFrame.setLocationRelativeTo(null);
         serverFrame.getContentPane().setLayout(null);
 
-        String serverInfo = "<html><body>Address : " + ADDRESS + "&emsp &emsp &emsp &emsp &emsp &emsp Port : " + PORT
-                + "<br><br>Dictionary path : " + PATH + "<body></html>";
+        String serverInfo = "<html><body>Address : " + ADDRESS + "<br>Port : " + PORT
+                + "<br>Dictionary path : " + PATH + "<body></html>";
         infoLabel = new JLabel(serverInfo);
         infoLabel.setVerticalAlignment(SwingConstants.TOP);
         infoLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        infoLabel.setBounds(37, 29, 393, 61);
+        infoLabel.setBounds(37, 20, 393, 61);
         serverFrame.getContentPane().add(infoLabel);
 
         infoTextArea = new JTextArea();
@@ -99,9 +99,9 @@ public class ServerWindow extends JFrame {
                     infoTextArea.setText("Server is running...");
                     runBtn.setEnabled(false);
                     stopBtn.setEnabled(true);
-                    JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!", "Message", 1);
+                    JOptionPane.showMessageDialog(serverFrame, "Server runs successfully!", "Message", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(serverFrame, "Invalid file path or port!", "Error", 0);
+                    JOptionPane.showMessageDialog(serverFrame, "Invalid file path or port!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -117,15 +117,15 @@ public class ServerWindow extends JFrame {
                     if (server != null) {
                         server.terminate();
                         infoTextArea.setText(infoTextArea.getText() + "\nServer is closed.");
-                        JOptionPane.showMessageDialog(serverFrame, "Server terminated.", "Message", 1);
+                        JOptionPane.showMessageDialog(serverFrame, "Server terminated.", "Message", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        infoTextArea.setText(infoTextArea.getText() + "\nServer not availiable.");
-                        JOptionPane.showMessageDialog(serverFrame, "Server not availiable!", "Warning", 2);
+                        infoTextArea.setText(infoTextArea.getText() + "\nServer not available.");
+                        JOptionPane.showMessageDialog(serverFrame, "Server not available!", "Warning", JOptionPane.WARNING_MESSAGE);
                     }
                 } catch (Exception e2) {
                     infoTextArea.setText(infoTextArea.getText() + "\nError occurs when disconnecting the server.");
                     JOptionPane.showMessageDialog(serverFrame, "Error occurs when disconnecting the server!", "Error",
-                            0);
+                            JOptionPane.ERROR_MESSAGE);
                 } finally {
                     runBtn.setEnabled(true);
                     stopBtn.setEnabled(false);

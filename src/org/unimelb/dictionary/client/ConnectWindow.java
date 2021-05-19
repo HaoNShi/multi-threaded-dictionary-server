@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 public class ConnectWindow extends JFrame {
     private static final long serialVersionUID = -4613468624372407369L;
     private final static int PORT_MAX = 10000;
+    private static final Client client = new Client();
     public static String ADDRESS = "localhost";
     public static int PORT = 8088;
-    private static final Client client = new Client();
     private static JFrame connectFrame;
     private final JLabel addressLabel;
     private final JLabel portLabel;
@@ -88,15 +88,15 @@ public class ConnectWindow extends JFrame {
     private static void connect(String address, String port) {
         // server accepts "localhost" and IP addresses
         if (!address.equals("localhost") && (!address.matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"))) {
-            JOptionPane.showMessageDialog(connectFrame, "Invalid address!", "Error", 0);
+            JOptionPane.showMessageDialog(connectFrame, "Invalid address!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (port.equals("") || !port.matches("^[0-9]+$")) {
-            JOptionPane.showMessageDialog(connectFrame, "Port number must be positive integer!", "Error", 0);
+            JOptionPane.showMessageDialog(connectFrame, "Port number must be positive integer!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             ADDRESS = address;
             PORT = Integer.parseInt(port);
             if (PORT > PORT_MAX) {
                 JOptionPane.showMessageDialog(connectFrame, "Exceed the maximum number of port!\n(port<10000)",
-                        "Warning", 2);
+                        "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 try {
                     client.start(ADDRESS, PORT);
@@ -105,7 +105,7 @@ public class ConnectWindow extends JFrame {
                 } catch (Exception invalidInputs) {
                     // when the port is not correct or server is closed
                     JOptionPane.showMessageDialog(connectFrame, "Connect Error!\nPlease check the port or server.",
-                            "Warning", 2);
+                            "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
